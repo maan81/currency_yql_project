@@ -1,0 +1,107 @@
+--------------------------------------------------------------------------------
+1. 
+   - grab data from yahoo currency api for list of symbols (?) every minute
+ 
+      http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.xchange where pair in ("GBPUSD", "USDCHF", "EURUSD", "GBPJPY", "EURJPY", "GBPEUR", "USDCAD", "USDJPY", "AUDUSD", "NZDUSD", "EURAUD", "EURCHF", "GBPCHF", "CADJPY", "AUDNZD", "GBPCAD", "EURNZD", "EURCAD", "CHFJPY", "AUDJPY")&env=store://datatables.org/alltableswithkeys
+
+   - insert collected data into db table
+   - table name (minute_data ?)
+ 
+   - columns 
+      - symbol          (rate id)
+      - price           (rate)
+      - time            (date)  
+      - date            (time)
+      - ask             (ask ?)
+      - bid             (bid ?)
+
+--------------------------------------------------------------------------------
+2. 
+   - query "minute_data" end of every hour (ie, 10:59), monday to friday
+
+   - for every symbol (the listed 20 symbols ?) get :
+     - open price of the hour (ie. price at the start of the hr)
+     - heighest price of the hour
+     - lowest price of the hour
+     - closing price of the hour (ie, price at the end of the hr)
+     - time of the hour (ie, if 9:00-9:59, then 9:00am)
+
+   - store on "hour_data" table of db
+   - delete data from "minute_data" having the time 2 hours before current time
+
+--------------------------------------------------------------------------------
+3. 
+   - run daily at 00:00GMT, by cron
+   - query "hour_data" table & store the following :
+     - open price of the day,      (opening price at 24 hrs before)
+     - heighest price of the day,  (heighest price within the last 24 hrs)
+     - lowest price of the day,    (lowest price within the last 24 hrs)
+     - closing price of the day    (closing price )
+
+   - store the data into "daily_data" table of db
+
+--------------------------------------------------------------------------------
+4.
+   - query "hour_data" table db for each symbol to get :
+     - open price at the start of time
+     - heighest price between start & end of time
+     - lowest price between start & end of time
+     - closeing price of the time
+ 
+   - query betn. times set in file (which file ???)
+
+   - store in data in "range_data"
+
+--------------------------------------------------------------------------------
+5.
+    - del previous data
+    - runs after hourly, daily, range data has been executed
+    - deletes the previous days 1 minute yahoo data (not understood ??)
+
+--------------------------------------------------------------------------------
+6.
+  - create "connect.php" as include to connect to db
+  - create "index.php" script (?)
+  - from url "domainname.com/symbol/" (ie, http://example.com/EURUSD  ?), get :
+    - currency price (1 minute ago)
+    - last hour OHLC prices  	
+    - last day's OHLC prices
+    - yesterday’s range (?) OHLC prices
+  
+  - display on provided template the data obtained 
+
+================================================================================
+
+
+Questions/confirations
+-----------------------
+- Does the "list of symbols" mentioned in the current job refer to the 20 
+  symbols used in the provided url ?
+
+    GBPUSD    USDCHF    EURUSD    GBPJPY
+    EURJPY    GBPEUR    USDCAD    USDJPY
+    AUDUSD    NZDUSD    EURAUD    EURCHF
+    GBPCHF    CADJPY    AUDNZD    GBPCAD
+    EURNZD    EURCAD    CHFJPY    AUDJPY
+
+
+- I used "minute_data" as the table name (in the procedure) for the first table 
+  which stores data collected every minute from yql.
+
+
+- For the 4th script, "...script which can query..... between any two times that 
+  can be set by me in the file", which file containing the two times does this 
+  refer to ?
+
+
+- In fhe 5th script, I am not clear on "deletes the previous days 1 minute yahoo 
+  data" 
+
+
+- In the last part, "yesterday’s range OHLC prices" means the OHLC prices 
+  between 00:00 and 23:59 for the given name  ?
+
+================================================================================
+
+
+** time used = GMT **
