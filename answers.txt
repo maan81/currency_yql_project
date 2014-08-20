@@ -1,0 +1,46 @@
+Questions/confirations
+-----------------------
+- Does the "list of symbols" mentioned in the current job refer to the 20 
+  symbols used in the provided url ?
+
+    Yes, that is correct. Only these 20 symbols needed.
+
+
+- I used "minute_data" as the table name (in the procedure) for the first table 
+  which stores data collected every minute from yql.
+  
+  Thanks!
+
+
+- For the 4th script, "...script which can query..... between any two times that 
+  can be set by me in the file", which file containing the two times does this 
+  refer to ?
+  
+  If this script is within a separate file, example range.php, and is accessed by cron to run
+  within this file have 2 strings where I can edit the start and end time of the range.
+
+
+- In fhe 5th script, I am not clear on "deletes the previous days 1 minute yahoo 
+  data" 
+  
+  Looks like you already took care of the unwanted 1 minute data in script 2.
+  This was different to how I described doing it, but your method will work the same
+  if you use the one hour data for creating your daily levels.
+  
+  I would like only also only a small amount of hour data stored. So maybe after daily time levels
+  have been stored, it removes some not needed hour data for previous day.
+
+
+- In the last part, "yesterday’s range OHLC prices" means the OHLC prices 
+  between 00:00 and 23:59 for the given name  ?
+  
+  Yes, the OHLC between any two times I specify in the file. It could be 09:00 to 13:00 etc..
+  Time of range does not need displayed, just OHLC referenced as "Range" on output page.
+  
+  GMT is excellent for me. :)
+  
+  I will accept your bid as you seem to completely understand the work.
+  If this goes well and to plan, maybe we can chat about more work.
+  
+  I own a few large sites like livecharts.co.uk and forexrate.co.uk
+  and have a great working relationship for many years with freelancers I found on elance.

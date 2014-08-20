@@ -1,0 +1,21 @@
+File for inserting data is loaded into root html folder as rates.html
+
+FTP:
+
+xanza.com
+
+username: xanza
+pass: xa123
+
+mySQL
+
+database: xanza_currency
+user: xanza_currency
+pass: xac123!
+
+
+cPanel
+
+https://162.248.99.10:2083
+
+xanza / xa123
