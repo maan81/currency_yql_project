@@ -87,3 +87,11 @@ $db = new Database($config);
     $db->insert_day($config['db']['day_table'],$data_hourly);
 
 //---------------------------------------------------    
+
+
+//---------------------------------------------------    
+// deletes 2 days before data from hour table
+
+	$db->del_hour($config['db']['hour_table'],'2_day_earlier');
+
+//---------------------------------------------------    

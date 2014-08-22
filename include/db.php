@@ -160,10 +160,32 @@ class Database{
 		// 'Datetime'=> '2_hour_earlier'
 		if( $cond=='2_hour_earlier'){
 			$datetime = new DateTime(null, new DateTimeZone('UTC'));
-			$datetime->modify('-2 hour');
+			$datetime->modify('-2 hours');
 			$earlier =  $datetime->format('Y-m-d H:i:s');
 
-			// // $sql .= ' AND Datetime 	>= '.gmdate("Y-m-d H:i:s").' - INTERVAL 1 HOUR ';
+			$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+		}
+		$sql .= ';';
+
+		_print_r($sql);
+
+		mysqli_query($this->con,$sql);
+
+		self::disconnect();
+	}
+
+
+	function del_hour($table,$cond){
+		self::connect();
+
+		$sql = 'DELETE FROM '.$table.' WHERE 1 ';
+
+		// 'Datetime'=> '2_day_earlier'
+		if( $cond=='2_day_earlier'){
+			$datetime = new DateTime(null, new DateTimeZone('UTC'));
+			$datetime->modify('-2 days');
+			$earlier =  $datetime->format('Y-m-d H:i:s');
+
 			$sql .= ' AND Datetime 	<= "'.$earlier.'"';
 		}
 		$sql .= ';';
