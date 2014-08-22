@@ -40,10 +40,6 @@ class Database{
 
 		self::connect();
 
-		// select * from minute_table
-		// where date 
-		// and time 
-
 		$sql = 'SELECT * FROM '.$table.' WHERE 1 ';
 
 
@@ -56,6 +52,18 @@ class Database{
 			// // $sql .= ' AND Datetime 	>= '.gmdate("Y-m-d H:i:s").' - INTERVAL 1 HOUR ';
 			$sql .= ' AND Datetime 	>= "'.$earlier.'"';
 		}
+
+
+		// 1_day_earlier
+		if( $param=='1_hour_earlier'){
+			$datetime = new DateTime(null, new DateTimeZone('UTC'));
+			$datetime->modify('-1 day');
+			$earlier =  $datetime->format('Y-m-d H:i:s');
+
+			// // $sql .= ' AND Datetime 	>= '.gmdate("Y-m-d H:i:s").' - INTERVAL 1 HOUR ';
+			$sql .= ' AND Datetime 	>= "'.$earlier.'"';
+		}
+
 
 		$sql .= ';';
 

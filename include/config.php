@@ -11,7 +11,8 @@ $config['db']['password'] = 'password';
 
 
 $config['db']['minute_table'] = 'minute_table';
-$config['db']['hour_table'] = 'hour_table';
+$config['db']['hour_table']   = 'hour_table';
+$config['db']['day_table']    = 'day_table';
 
 
 $config['use_filedata'] = false;

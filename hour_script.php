@@ -17,7 +17,7 @@
 
 require_once('include/config.php');
 require_once('include/db.php');
-require_once('include/sort_fn.php');
+// require_once('include/sort_fn.php');
 
 $db = new Database($config);
 
@@ -70,8 +70,8 @@ $db = new Database($config);
 			$rates_array[]	 = $vv['Rate'];
 			$starting_array[]= $vv['Datetime'];
 		}
-	// _print_r($rates_array,false);
-	// _print_r($starting_array,false);
+		// _print_r($rates_array,false);
+		// _print_r($starting_array,false);
 
 		$data_hourly[] = array('Symbol'	  => $val[0]['Symbol'],
 								'Open' 	  => $rates_array[0],
@@ -87,7 +87,7 @@ $db = new Database($config);
 
 
 //---------------------------------------------------    
-// insert into db
+// insert into hour table
 
     $db->insert_hour($config['db']['hour_table'],$data_hourly);
 
