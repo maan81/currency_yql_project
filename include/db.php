@@ -36,13 +36,34 @@ class Database{
 
 	}
 
-	function get(){}
+	/**
+	 * Get Table by parameters
+	 */
+	function get($table,$param){
 
+		self::connect();
+
+		$sql = '';
+
+// select * from minute_table
+// where date 
+// and time 
+
+		$sql .= ';';
+
+		self::disconnect();
+	}
+
+	/**
+	 * Insert data as a batch, ie multiple rows at once
+	 * @param string -- table name
+	 * @param array --- array of arrays of data
+	 */
 	function insert_batch($table,$data){
 
 		self::connect();
 
-		$keys = array('Symbol','Name','Rate','Date','Time','Ask','Bid');
+		$keys = array('Symbol','Name','Rate','Date','Time','DateTime','Ask','Bid');
 
 		$sql = 'INSERT INTO '.$table.' ( '.implode(',',$keys).' ) VALUES ';
 
@@ -60,6 +81,7 @@ class Database{
 							$val['Rate'].','.
 						'"'.date('Y-m-d',strtotime($val['Date'])).'",'.
 						'"'.date('H:i',strtotime($val['Time'])).'",'.
+						'"'.$val['Datetime'].'",'.
 							$val['Ask']	.','.
 							$val['Bid']	.
 					')';

@@ -72,6 +72,8 @@ $data = json_decode($resp,true);
     for ($i=0;$i<count($data);$i++){ 
         $data[$i]['Date'] = $date;
         $data[$i]['Time'] = $time;
+
+        $data[$i]['Datetime'] = $date.' '.$time;
     }
 
     // foreach($data as $key=>$val){
