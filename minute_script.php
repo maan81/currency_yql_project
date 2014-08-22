@@ -91,5 +91,7 @@ $data = json_decode($resp,true);
 // insert into db
     $db = new Database($config);
 
-    $db->insert_batch($config['db']['minute_table'],$data);
+    $db->insert_minute($config['db']['minute_table'],$data);
 //---------------------------------------------------    
+
+

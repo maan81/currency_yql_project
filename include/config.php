@@ -14,7 +14,7 @@ $config['db']['minute_table'] = 'minute_table';
 $config['db']['hour_table'] = 'hour_table';
 
 
-$config['use_filedata'] = true;
+$config['use_filedata'] = false;
 $config['filepath'] = 'include/';
 $config['filename'] = 'current_data_json.';
 
