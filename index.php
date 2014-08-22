@@ -14,16 +14,47 @@
 require_once('include/config.php');
 require_once('include/db.php');
 
-echo 'asdfasdf';
+//==============================
+	// echo 'asdfasdf';
 
-echo '<br/>';
+	// echo '<br/>';
 
-print_r($_REQUEST);
+	// print_r($_REQUEST);
 
-echo '<br/>';
+	// echo '<br/>';
 
-print_r($_POST);
+	// print_r($_POST);
 
-echo '<br/>';
+	// echo '<br/>';
 
-print_r($_GET);
+	// print_r($_GET);
+
+
+
+$db = new Database($config);
+
+
+// _print_r($_GET);
+
+
+//-------------------------------------
+// get the current prices of the selected symbol
+
+	//here ,$symbol will be the currency identifier, eg, eurusd
+	$symbol = $_GET['symbol'];
+
+	// current minute data
+	$last_minute = $db->get($config['db']['minute_table'],'latest_minute',$symbol);
+	_print_r($last_minute);
+
+
+	// last hour data
+	$last_hour = $db->get($config['db']['hour_table'],'latest_hour',$symbol);
+	_print_r($last_hour);
+
+
+	// last day's prices
+	$last_day = $db->get($config['db']['day_table'],'latest_day',$symbol);
+	_print_r($last_day);
+
+//-------------------------------------

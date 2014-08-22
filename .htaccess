@@ -1,5 +1,5 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine On
-	RewriteRule ^([a-zA-Z]{6})$ index.php?page=$1
-	RewriteRule ^([a-zA-Z0-9]{6})/$ index.php?page=$1
+	RewriteRule ^([a-zA-Z]{6})$ index.php?symbol=$1
+	RewriteRule ^([a-zA-Z0-9]{6})/$ index.php?symbol=$1
 </IfModule>

@@ -36,13 +36,13 @@ class Database{
 	/**
 	 * Get Table by parameters
 	 */
-	function get($table,$param){
-
+	function get($table,$param,$symbol=false){
+// _print_r($symbol);
 		self::connect();
 
 		$sql = 'SELECT * FROM '.$table.' WHERE 1 ';
 
-
+		
 		// 'Datetime'=> '1_hour_earlier'
 		if( $param=='1_hour_earlier'){
 			$datetime = new DateTime(null, new DateTimeZone('UTC'));
@@ -55,7 +55,7 @@ class Database{
 
 
 		// 1_day_earlier
-		if( $param=='1_hour_earlier'){
+		else if( $param=='1_hour_earlier'){
 			$datetime = new DateTime(null, new DateTimeZone('UTC'));
 			$datetime->modify('-1 day');
 			$earlier =  $datetime->format('Y-m-d H:i:s');
@@ -63,6 +63,36 @@ class Database{
 			// // $sql .= ' AND Datetime 	>= '.gmdate("Y-m-d H:i:s").' - INTERVAL 1 HOUR ';
 			$sql .= ' AND Datetime 	>= "'.$earlier.'"';
 		}
+
+
+		// get data of a symbol only
+		if(!empty($symbol)){
+
+			// latest_minute
+			if( $param=='latest_minute') {
+
+				// to get the latest minute's data of the 20 symbols
+				$sql .= ' AND Symbol = "'.strtoupper($symbol).'" ORDER BY Datetime DESC LIMIT 1 ';
+
+			}
+
+			// latest_minute
+			else if( $param=='latest_hour') {
+
+				// to get the latest minute's data of the 20 symbols
+				$sql .= ' AND Symbol = "'.strtoupper($symbol).'" ORDER BY Datetime DESC LIMIT 1 ';
+
+			}
+
+			// latest_minute
+			else if( $param=='latest_day') {
+
+				// to get the latest minute's data of the 20 symbols
+				$sql .= ' AND Symbol = "'.strtoupper($symbol).'" ORDER BY Datetime DESC LIMIT 1 ';
+
+			}
+		}
+
 
 
 		$sql .= ';';
