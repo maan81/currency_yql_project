@@ -3,17 +3,15 @@
 /**
 * Database access & handling
 */
-class db{
+class Database{
 	
-	// $server   = '';
-	// $database = '';
-	// $username = 'root';
-	// $password = 'password';
+	private $server;
+	private $database;
+	private $username;
+	private $password;
 
 
-	function __construct(/*argument*/){
-
-		require_once('config.php');
+	function __construct($config){
 
 		$this->server   = $config['db']['server'];
 		$this->database = $config['db']['database'];
@@ -25,7 +23,7 @@ class db{
 
 	function connect(){
 
-		$$this->con=mysqli_connect($this->server,$this->username,$this->password,$this->database);
+		$this->con=mysqli_connect($this->server,$this->username,$this->password,$this->database);
 		// Check connection
 		if (mysqli_connect_errno()){
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -40,42 +38,41 @@ class db{
 
 	function get(){}
 
-	function insert($table,$data){
+	function insert_batch($table,$data){
 
 		self::connect();
 
-		$keys = array_keys($data[0]);
+		$keys = array('Symbol','Name','Rate','Date','Time','Ask','Bid');
 
 		$sql = 'INSERT INTO '.$table.' ( '.implode(',',$keys).' ) VALUES ';
 
+		$first=true;
 
 		foreach($data as $key=>$val){
-			foreach($val as $kk=>$vv){
-				$sql .= '"'.$vv.'"';
+			if(!$first){
+				$sql .= ',';
 			}
+
+			// $sql .= '("'.implode('","', $val).'")';
+			$sql .= '('.
+						'"'.$val['id']  .'",'.
+						'"'.$val['Name'].'",'.
+							$val['Rate'].','.
+						'"'.date('Y-m-d',strtotime($val['Date'])).'",'.
+						'"'.date('H:i',strtotime($val['Time'])).'",'.
+							$val['Ask']	.','.
+							$val['Bid']	.
+					')';
+
+			$first = false;	
 		}
+		$sql .= ';';
 
-		$sql .= ');';
-
-		_print_r($sql,false);
+		// _print_r($sql,false);
 
 		mysqli_query($this->con,$sql);
 
-
-		//===============================
-			// $con=mysqli_connect("localhost","my_user","my_password","my_db");
-			// // Check connection
-			// if (mysqli_connect_errno())
-			//   {
-			//   echo "Failed to connect to MySQL: " . mysqli_connect_error();
-			//   }
-
-			// // Perform queries
-			// mysqli_query($con,"SELECT * FROM Persons");
-			// mysqli_query($con,"INSERT INTO Persons (FirstName,LastName,Age)
-			// VALUES ('Glenn','Quagmire',33)");
-
-			// mysqli_close($con);
+		self::disconnect();
 	}
 
 }

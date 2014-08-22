@@ -11,7 +11,12 @@ $config['db']['password'] = 'password';
 
 
 $config['db']['minute_table'] = 'minute_table';
-$config['db']['hour_table'] = 'minute_table';
+$config['db']['hour_table'] = 'hour_table';
+
+
+$config['use_filedata'] = false;
+$config['filepath'] = 'include/';
+$config['filename'] = 'current_data_json.';
 
 
 $config['yql'] = 'select * from yahoo.finance.xchange where pair in ("GBPUSD", "USDCHF", "EURUSD", "GBPJPY", "EURJPY", "GBPEUR", "USDCAD", "USDJPY", "AUDUSD", "NZDUSD", "EURAUD", "EURCHF", "GBPCHF", "CADJPY", "AUDNZD", "GBPCAD", "EURNZD", "EURCAD", "CHFJPY", "AUDJPY")';
@@ -35,17 +40,17 @@ function _print_r($data,$end=true,$return=false){
 
 		$t = debug_backtrace();
 
-		$str .= '<hr/>';
+		$str .= PHP_EOL.'<hr/>';
 		$str .= '<pre>';
 		$str .= print_r('file : '.$t[0]['file'],true);
 		$str .= '</pre>';
-		$str .= '<pre>';
+		$str .= PHP_EOL.'<pre>';
 		$str .= print_r('line : '.$t[0]['line'],true);
 		$str .= '</pre>';
-		$str .= '<pre>';
+		$str .= PHP_EOL.'<pre>';
 		$str .= print_r('data :'.print_r($data,true),true);
 		$str .= '</pre>';
-		$str .= '<hr/>';
+		$str .= PHP_EOL.'<hr/>';
 	}
 
 
