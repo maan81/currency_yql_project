@@ -34,7 +34,22 @@ require_once('include/db.php');
 $db = new Database($config);
 
 
-// _print_r($_GET);
+//-------------------------------------
+// test the symbol called
+
+	// _print_r($_GET);
+
+//-------------------------------------
+
+
+
+//-------------------------------------
+// execute the range script
+
+	include('range_script.php');
+
+//-------------------------------------
+
 
 
 //-------------------------------------
@@ -60,4 +75,8 @@ $db = new Database($config);
 	echo 'Last day data';
 	_print_r($last_day,false);
 
+
+	// last days' ohlc prices
+	$last_day_ohlc = $db->get($config['db']['range_table'],'range_data',$symbol);
+	_print_r($last_day_ohlc,false);
 //-------------------------------------

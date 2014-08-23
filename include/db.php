@@ -91,7 +91,7 @@ class Database{
 
 			}
 
-			// latest_minute
+			// latest_hour
 			else if( $param=='latest_hour') {
 
 				// to get the latest minute's data of the 20 symbols
@@ -99,13 +99,14 @@ class Database{
 
 			}
 
-			// latest_minute
+			// latest_day
 			else if( $param=='latest_day') {
 
 				// to get the latest minute's data of the 20 symbols
 				$sql .= ' AND Symbol = "'.strtoupper($symbol).'" ORDER BY Datetime DESC LIMIT 1 ';
 
 			}
+
 		}
 
 
