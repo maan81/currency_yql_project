@@ -15,6 +15,7 @@ $config['db']['password'] = 'password';
 $config['db']['minute_table'] = 'minute_table';
 $config['db']['hour_table']   = 'hour_table';
 $config['db']['day_table']    = 'day_table';
+$config['db']['range_table']  = 'range_table';
 
 
 
@@ -35,9 +36,16 @@ $config['filename'] = 'current_data_json.';
 
 
 
+/**
+ * Range Start time & Range end time -- from yesterday's hour data
+ */
+$config['range_start'] = '08-00-00';
+$config['range_end']   = '18-00-00';
+
+
 
 /**
- * Print_r fn customized for debugging.
+ * PHP's print_r fn customized for debugging.
  * should not be necessary for production
  *
  */

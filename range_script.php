@@ -1,19 +1,14 @@
 <?php
+
 /*
-   - query "minute_data" end of every hour (ie, 10:59), monday to friday
+   - query "hour_data" table & store the following :
+     - open price of the day,      (opening price at 24 hrs before)
+     - heighest price of the day,  (heighest price within the last 24 hrs)
+     - lowest price of the day,    (lowest price within the last 24 hrs)
+     - closing price of the day    (closing price )
 
-   - for every symbol (the listed 20 symbols ?) get :
-     - open price of the hour (ie. price at the start of the hr)
-     - heighest price of the hour
-     - lowest price of the hour
-     - closing price of the hour (ie, price at the end of the hr)
-     - time of the hour (ie, if 9:00-9:59, then 9:00am)
-
-   - store on "hour_data" table of db
-   - delete data from "minute_data" having the time 2 hours before current time
-
+   - store the data into "range_data" table of db
 */
-
 
 require_once('include/config.php');
 require_once('include/db.php');
@@ -22,14 +17,13 @@ require_once('include/db.php');
 $db = new Database($config);
 
 
-
 //-------------------------------------
-// get all the minute data
+// get all the hourly data between the ranges
 
-	$data = $db->get($config['db']['minute_table'],'1_hour_earlier');
+	$data = $db->get($config['db']['hour_table'],'1_day_earlier');
 	// _print_r($data);
-//-------------------------------------
 
+//-------------------------------------
 
 
 //-------------------------------------
@@ -58,7 +52,7 @@ $db = new Database($config);
 
 
 //-------------------------------------
-// find the open, heigh, low, & closing of the hour
+// find the open, heigh, low, & closing of the day
 
 	$data_hourly = array();
 	foreach ($symbols_array as $key => $val) {
@@ -87,16 +81,16 @@ $db = new Database($config);
 
 
 //---------------------------------------------------    
-// insert into hour table
+// insert into day table
 
-    $db->insert_hour($config['db']['hour_table'],$data_hourly);
-
-//---------------------------------------------------    
-
+    $db->insert_day($config['db']['day_table'],$data_hourly);
 
 //---------------------------------------------------    
-// deletes 2 days before data from hour table
 
-	$db->del($config['db']['hour_table'],'2_day_earlier');
+
+//---------------------------------------------------    
+// deletes 2 weeks before data from day table
+
+	$db->del($config['db']['day_table'],'2_weeks_earlier');
 
 //---------------------------------------------------    

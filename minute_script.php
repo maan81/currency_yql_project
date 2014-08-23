@@ -24,8 +24,8 @@
 */
 
 require_once('include/config.php');
-// require_once('include/simple_html_dom.php');
 require_once('include/db.php');
+// require_once('include/simple_html_dom.php');
 
 
 // use stored data
@@ -76,10 +76,6 @@ $data = json_decode($resp,true);
         $data[$i]['Datetime'] = $date.' '.$time;
     }
 
-    // foreach($data as $key=>$val){
-    //     $val['Date'] = $date;
-    //     $val['Time'] = $time;
-    // }
 //---------------------------------------------------    
 
 // _print_r($data);
@@ -95,3 +91,10 @@ $data = json_decode($resp,true);
 //---------------------------------------------------    
 
 
+
+//---------------------------------------------------    
+// delete 2 hourls earlier data from the minute table
+
+    $db->del($config['db']['minute_table'],'2_hour_earlier');
+
+//---------------------------------------------------    

@@ -37,7 +37,7 @@ class Database{
 	 * Get Table by parameters
 	 */
 	function get($table,$param,$symbol=false){
-// _print_r($symbol);
+		// _print_r($symbol);
 		self::connect();
 
 		$sql = 'SELECT * FROM '.$table.' WHERE 1 ';
@@ -182,7 +182,7 @@ class Database{
 	}
 
 
-	function del_minute($table,$cond){
+	function del($table,$cond){
 		self::connect();
 
 		$sql = 'DELETE FROM '.$table.' WHERE 1 ';
@@ -195,29 +195,25 @@ class Database{
 
 			$sql .= ' AND Datetime 	<= "'.$earlier.'"';
 		}
-		$sql .= ';';
-
-		_print_r($sql);
-
-		mysqli_query($this->con,$sql);
-
-		self::disconnect();
-	}
-
-
-	function del_hour($table,$cond){
-		self::connect();
-
-		$sql = 'DELETE FROM '.$table.' WHERE 1 ';
 
 		// 'Datetime'=> '2_day_earlier'
-		if( $cond=='2_day_earlier'){
+		else if( $cond=='2_day_earlier'){
 			$datetime = new DateTime(null, new DateTimeZone('UTC'));
 			$datetime->modify('-2 days');
 			$earlier =  $datetime->format('Y-m-d H:i:s');
 
 			$sql .= ' AND Datetime 	<= "'.$earlier.'"';
 		}
+
+		// 'Datetime'=> '2_weeks_earlier'
+		else if( $cond=='2_weeks_earlier'){
+			$datetime = new DateTime(null, new DateTimeZone('UTC'));
+			$datetime->modify('-2 weeks');
+			$earlier =  $datetime->format('Y-m-d H:i:s');
+
+			$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+		}
+
 		$sql .= ';';
 
 		_print_r($sql);
@@ -226,6 +222,53 @@ class Database{
 
 		self::disconnect();
 	}
+
+
+
+	// function del_minute($table,$cond){
+	// 	self::connect();
+
+	// 	$sql = 'DELETE FROM '.$table.' WHERE 1 ';
+
+	// 	// 'Datetime'=> '2_hour_earlier'
+	// 	if( $cond=='2_hour_earlier'){
+	// 		$datetime = new DateTime(null, new DateTimeZone('UTC'));
+	// 		$datetime->modify('-2 hours');
+	// 		$earlier =  $datetime->format('Y-m-d H:i:s');
+
+	// 		$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+	// 	}
+	// 	$sql .= ';';
+
+	// 	_print_r($sql);
+
+	// 	mysqli_query($this->con,$sql);
+
+	// 	self::disconnect();
+	// }
+
+
+	// function del_hour($table,$cond){
+	// 	self::connect();
+
+	// 	$sql = 'DELETE FROM '.$table.' WHERE 1 ';
+
+	// 	// 'Datetime'=> '2_day_earlier'
+	// 	if( $cond=='2_day_earlier'){
+	// 		$datetime = new DateTime(null, new DateTimeZone('UTC'));
+	// 		$datetime->modify('-2 days');
+	// 		$earlier =  $datetime->format('Y-m-d H:i:s');
+
+	// 		$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+	// 	}
+	// 	$sql .= ';';
+
+	// 	_print_r($sql);
+
+	// 	mysqli_query($this->con,$sql);
+
+	// 	self::disconnect();
+	// }
 
 }
 
