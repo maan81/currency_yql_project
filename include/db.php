@@ -83,11 +83,13 @@ class Database{
 		// get data of a s[ecific symbol only
 		if(!empty($symbol)){
 
+			$sql .= ' AND Symbol = "'.strtoupper($symbol).'" ';
+
 			// latest_minute
 			if( $param=='latest_minute') {
 
 				// to get the latest minute's data of the 20 symbols
-				$sql .= ' AND Symbol = "'.strtoupper($symbol).'" ORDER BY Datetime DESC LIMIT 1 ';
+				$sql .= ' ORDER BY Datetime DESC LIMIT 1 ';
 
 			}
 
@@ -95,7 +97,7 @@ class Database{
 			else if( $param=='latest_hour') {
 
 				// to get the latest minute's data of the 20 symbols
-				$sql .= ' AND Symbol = "'.strtoupper($symbol).'" ORDER BY Datetime DESC LIMIT 1 ';
+				$sql .= ' ORDER BY Datetime DESC LIMIT 1 ';
 
 			}
 
@@ -103,7 +105,7 @@ class Database{
 			else if( $param=='latest_day') {
 
 				// to get the latest minute's data of the 20 symbols
-				$sql .= ' AND Symbol = "'.strtoupper($symbol).'" ORDER BY Datetime DESC LIMIT 1 ';
+				$sql .= ' ORDER BY Datetime DESC LIMIT 1 ';
 
 			}
 

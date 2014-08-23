@@ -58,10 +58,27 @@ $db = new Database($config);
 	//here ,$symbol will be the currency identifier, eg, eurusd
 	$symbol = $_GET['symbol'];
 
+  // !!!!!!!!!!!!!!!!!!!!!
+  // //using symbols limited to the 20 specified symbols
+  // if(!validate($symbol)){
+  //   echo 'Invalid symbol';
+  //   die;
+  // }
+  // !!!!!!!!!!!!!!!!!!!!!
+
+  //uppercase coz. it is used a lot.
+  $symbol_upper = strtoupper($symbol);
+
 	// current minute data
 	$last_minute = $db->get($config['db']['minute_table'],'latest_minute',$symbol);
 	echo 'Current minute data';
 	_print_r($last_minute,false);
+
+
+  // current hour detail data
+  $current_hour_detail = $db->get($config['db']['minute_table'],'1_hour_earlier',$symbol);
+  echo 'Current hour data';
+  _print_r($current_hour_detail,false);
 
 
 	// last hour data
@@ -80,3 +97,11 @@ $db = new Database($config);
 	$last_day_ohlc = $db->get($config['db']['range_table'],'range_data',$symbol);
 	_print_r($last_day_ohlc,false);
 //-------------------------------------
+
+
+
+
+
+
+// Include the template for display 
+include($config['template']['path'].'rates.tpl.php');

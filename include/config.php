@@ -58,6 +58,9 @@ $config['day_table_range']    = '-2 weeks';
 $config['range_table_range']  = '-2 weeks';
 
 
+$config['template']['path'] = 'template/';
+
+
 /**
  * PHP's print_r fn customized for debugging.
  * should not be necessary for production
