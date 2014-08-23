@@ -36,7 +36,7 @@ class Database{
 	/**
 	 * Get Table by parameters
 	 */
-	function get($table,$param,$symbol=false){
+	function get($table,$param,$symbol=false,$range_start=false,$range_end=false){
 		// _print_r($symbol);
 		self::connect();
 
@@ -55,7 +55,7 @@ class Database{
 
 
 		// 1_day_earlier
-		else if( $param=='1_hour_earlier'){
+		else if( $param=='1_day_earlier'){
 			$datetime = new DateTime(null, new DateTimeZone('UTC'));
 			$datetime->modify('-1 day');
 			$earlier =  $datetime->format('Y-m-d H:i:s');
@@ -65,7 +65,22 @@ class Database{
 		}
 
 
-		// get data of a symbol only
+		// range_data
+		else if( $param=='range_data'){
+			$datetime = new DateTime(null, new DateTimeZone('UTC'));
+			$datetime->modify('-1 day');
+			$tmp =  $datetime->format('Y-m-d H:i:s');
+
+			$tmp = explode(' ',$tmp);
+			// _print_r($tmp);
+			// $tmp[0] = '2014-08-22';
+			$range_start = $tmp[0].' '.$range_start;
+			$range_end   = $tmp[0].' '.$range_end;
+
+			$sql .= ' AND Datetime 	>= "'.$range_start.'" AND Datetime <= "'.$range_end.'" ';
+		}
+
+		// get data of a s[ecific symbol only
 		if(!empty($symbol)){
 
 			// latest_minute
@@ -182,93 +197,98 @@ class Database{
 	}
 
 
-	function del($table,$cond){
+	function insert_day($table,$data){
+
 		self::connect();
 
-		$sql = 'DELETE FROM '.$table.' WHERE 1 ';
+		$keys = array('Symbol','Open','Heigh','Low','Closing','Datetime','Range_start','Range_end');
 
-		// 'Datetime'=> '2_hour_earlier'
-		if( $cond=='2_hour_earlier'){
-			$datetime = new DateTime(null, new DateTimeZone('UTC'));
-			$datetime->modify('-2 hours');
-			$earlier =  $datetime->format('Y-m-d H:i:s');
+		$sql = 'INSERT INTO '.$table.' ( '.implode(',',$keys).' ) VALUES ';
 
-			$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+		$first=true;
+
+		foreach($data as $key=>$val){
+			if(!$first){
+				$sql .= ',';
+			}
+
+			$sql .= '('.
+						'"'.$val['Symbol'].'",'.
+							$val['Open'].','.
+							$val['Heigh'].','.
+							$val['Low'].','.
+							$val['Closing'].','.
+						'"'.$val['Datetime'].'",'.
+						'"'.$val['Range_start'].'",'.
+						'"'.$val['Range_end'].'"'.
+					')';
+
+			$first = false;	
 		}
-
-		// 'Datetime'=> '2_day_earlier'
-		else if( $cond=='2_day_earlier'){
-			$datetime = new DateTime(null, new DateTimeZone('UTC'));
-			$datetime->modify('-2 days');
-			$earlier =  $datetime->format('Y-m-d H:i:s');
-
-			$sql .= ' AND Datetime 	<= "'.$earlier.'"';
-		}
-
-		// 'Datetime'=> '2_weeks_earlier'
-		else if( $cond=='2_weeks_earlier'){
-			$datetime = new DateTime(null, new DateTimeZone('UTC'));
-			$datetime->modify('-2 weeks');
-			$earlier =  $datetime->format('Y-m-d H:i:s');
-
-			$sql .= ' AND Datetime 	<= "'.$earlier.'"';
-		}
-
 		$sql .= ';';
-
-		_print_r($sql);
-
+		_print_r($sql,false);
 		mysqli_query($this->con,$sql);
 
 		self::disconnect();
 	}
 
 
+	function insert_range($table,$data){
 
-	// function del_minute($table,$cond){
-	// 	self::connect();
+		// insert_range() function is exactly same asthe insert_day() function
+		self::insert_day($table,$data);
 
-	// 	$sql = 'DELETE FROM '.$table.' WHERE 1 ';
-
-	// 	// 'Datetime'=> '2_hour_earlier'
-	// 	if( $cond=='2_hour_earlier'){
-	// 		$datetime = new DateTime(null, new DateTimeZone('UTC'));
-	// 		$datetime->modify('-2 hours');
-	// 		$earlier =  $datetime->format('Y-m-d H:i:s');
-
-	// 		$sql .= ' AND Datetime 	<= "'.$earlier.'"';
-	// 	}
-	// 	$sql .= ';';
-
-	// 	_print_r($sql);
-
-	// 	mysqli_query($this->con,$sql);
-
-	// 	self::disconnect();
-	// }
+	}
 
 
-	// function del_hour($table,$cond){
-	// 	self::connect();
+	function del($table,$range){
+		self::connect();
 
-	// 	$sql = 'DELETE FROM '.$table.' WHERE 1 ';
+		$sql = 'DELETE FROM '.$table.' WHERE 1 ';
 
-	// 	// 'Datetime'=> '2_day_earlier'
-	// 	if( $cond=='2_day_earlier'){
-	// 		$datetime = new DateTime(null, new DateTimeZone('UTC'));
-	// 		$datetime->modify('-2 days');
-	// 		$earlier =  $datetime->format('Y-m-d H:i:s');
+		$datetime = new DateTime(null, new DateTimeZone('UTC'));
+		$datetime->modify($range);
+		$earlier =  $datetime->format('Y-m-d H:i:s');
 
-	// 		$sql .= ' AND Datetime 	<= "'.$earlier.'"';
-	// 	}
-	// 	$sql .= ';';
+		$sql .= ' AND Datetime 	<= "'.$earlier.'"';
 
-	// 	_print_r($sql);
+		//-----------------------
+			// 	$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+			// // 'Datetime'=> '2_hour_earlier'
+			// if( $cond=='2_hour_earlier'){
+			// 	$datetime = new DateTime(null, new DateTimeZone('UTC'));
+			// 	$datetime->modify('-2 hours');
+			// 	$earlier =  $datetime->format('Y-m-d H:i:s');
 
-	// 	mysqli_query($this->con,$sql);
+			// 	$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+			// }
 
-	// 	self::disconnect();
-	// }
+			// // 'Datetime'=> '2_day_earlier'
+			// else if( $cond=='2_day_earlier'){
+			// 	$datetime = new DateTime(null, new DateTimeZone('UTC'));
+			// 	$datetime->modify('-2 days');
+			// 	$earlier =  $datetime->format('Y-m-d H:i:s');
+
+			// 	$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+			// }
+
+			// // 'Datetime'=> '2_weeks_earlier'
+			// else if( $cond=='2_weeks_earlier'){
+			// 	$datetime = new DateTime(null, new DateTimeZone('UTC'));
+			// 	$datetime->modify('-2 weeks');
+			// 	$earlier =  $datetime->format('Y-m-d H:i:s');
+
+			// 	$sql .= ' AND Datetime 	<= "'.$earlier.'"';
+			// }
+
+		$sql .= ';';
+
+		_print_r($sql,false);
+
+		mysqli_query($this->con,$sql);
+
+		self::disconnect();
+	}
 
 }
 

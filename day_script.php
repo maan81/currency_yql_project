@@ -55,28 +55,34 @@ $db = new Database($config);
 //-------------------------------------
 // find the open, heigh, low, & closing of the day
 
-	$data_hourly = array();
+	$data_day = array();
 	foreach ($symbols_array as $key => $val) {
-		$rates_array	 = array();
-		$starting_array	 = array();
+
+		$heigh_array = array();
+		$low_array	 = array();
 
 		foreach($val as $kk=>$vv){
 
-			$rates_array[]	 = $vv['Rate'];
-			$starting_array[]= $vv['Datetime'];
-		}
-		// _print_r($rates_array,false);
-		// _print_r($starting_array,false);
+			$heigh_array[]	 = $vv['Heigh'];
+			$low_array[]	 = $vv['Low'];
 
-		$data_hourly[] = array('Symbol'	  => $val[0]['Symbol'],
-								'Open' 	  => $rates_array[0],
-								'Heigh'	  => max($rates_array),
-								'Low'	  => min($rates_array),
-								'Closing' => $rates_array[count($rates_array)-1],
-								'Datetime'=> $starting_array[0]
+		}
+		// _print_r($heigh_array,false);
+		// _print_r($low_array,false);
+
+		$date = explode(' ',$val[0]['Datetime']);
+
+		$data_day[] = array(	'Symbol'	  => $val[0]['Symbol'],
+								'Open' 	 	  => $val[0]['Open'],
+								'Heigh'	 	  => max($heigh_array),
+								'Low'		  => min($low_array),
+								'Closing'	  => $val[count($val)-1]['Closing'],
+								'Datetime'	  => $val[0]['Datetime'],
+								'Range_start' => $date[0].' '.$config['range_start'],
+								'Range_end'	  => $date[0].' '.$config['range_end'],
 							);
 	}
-	_print_r($data_hourly,false);
+	_print_r($data_day,false);
 //----------------------------------
 
 
@@ -84,14 +90,14 @@ $db = new Database($config);
 //---------------------------------------------------    
 // insert into day table
 
-    $db->insert_day($config['db']['day_table'],$data_hourly);
+    $db->insert_day($config['db']['day_table'],$data_day);
 
 //---------------------------------------------------    
 
 
 //---------------------------------------------------    
-// deletes 2 weeks before data from day table
+// delete data from the day table according to the settings
 
-	$db->del($config['db']['day_table'],'2_weeks_earlier');
+	$db->del($config['db']['day_table'],$config['day_table_range']);
 
 //---------------------------------------------------    

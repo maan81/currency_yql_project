@@ -95,8 +95,8 @@ $db = new Database($config);
 
 
 //---------------------------------------------------    
-// deletes 2 days before data from hour table
+// delete data from the hour table according to the settings
 
-	$db->del($config['db']['hour_table'],'2_day_earlier');
+	$db->del($config['db']['hour_table'],$config['hour_table_range']);
 
 //---------------------------------------------------    

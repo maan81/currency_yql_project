@@ -45,16 +45,19 @@ $db = new Database($config);
 
 	// current minute data
 	$last_minute = $db->get($config['db']['minute_table'],'latest_minute',$symbol);
-	_print_r($last_minute);
+	echo 'Current minute data';
+	_print_r($last_minute,false);
 
 
 	// last hour data
 	$last_hour = $db->get($config['db']['hour_table'],'latest_hour',$symbol);
-	_print_r($last_hour);
+	echo 'Last hour data';
+	_print_r($last_hour,false);
 
 
 	// last day's prices
 	$last_day = $db->get($config['db']['day_table'],'latest_day',$symbol);
-	_print_r($last_day);
+	echo 'Last day data';
+	_print_r($last_day,false);
 
 //-------------------------------------

@@ -93,8 +93,8 @@ $data = json_decode($resp,true);
 
 
 //---------------------------------------------------    
-// delete 2 hourls earlier data from the minute table
+// delete data from the minute table according to the settings
 
-    $db->del($config['db']['minute_table'],'2_hour_earlier');
+    $db->del($config['db']['minute_table'],$config['minute_table_range']);
 
 //---------------------------------------------------    

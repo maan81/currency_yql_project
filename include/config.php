@@ -38,10 +38,24 @@ $config['filename'] = 'current_data_json.';
 
 /**
  * Range Start time & Range end time -- from yesterday's hour data
+ *  The range has to be within the same day, 
+ *  ie 00:00:00 to 11:59:59
  */
-$config['range_start'] = '08-00-00';
-$config['range_end']   = '18-00-00';
+$config['range_start'] = '17:00:00';
+$config['range_end']   = '22:00:00';
 
+
+/**
+ * Delete old data settings
+ *  The parameters avilaible are the ones accepted for Date::modify(), 
+ *  http://php.net/manual/en/datetime.modify.php
+ *
+ *  ie, -1 day,  -2 months  .....
+ */
+$config['minute_table_range'] = '-5 hours';
+$config['hour_table_range']   = '-2 days';
+$config['day_table_range']    = '-2 weeks';
+$config['range_table_range']  = '-2 weeks';
 
 
 /**
