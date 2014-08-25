@@ -150,7 +150,7 @@ class Database{
 						'"'.$val['Name'].'",'.
 							$val['Rate'].','.
 						'"'.date('Y-m-d',strtotime($val['Date'])).'",'.
-						'"'.date('H:i',strtotime($val['Time'])).'",'.
+						'"'.date('H:i:s',strtotime($val['Time'])).'",'.
 						'"'.$val['Datetime'].'",'.
 							$val['Ask']	.','.
 							$val['Bid']	.
@@ -159,7 +159,7 @@ class Database{
 			$first = false;	
 		}
 		$sql .= ';';
-
+		_print_r($sql);
 		mysqli_query($this->con,$sql);
 
 		self::disconnect();
@@ -229,7 +229,7 @@ class Database{
 			$first = false;	
 		}
 		$sql .= ';';
-		_print_r($sql,false);
+		// _print_r($sql,false);
 		mysqli_query($this->con,$sql);
 
 		self::disconnect();

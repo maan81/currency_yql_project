@@ -262,13 +262,11 @@
 
     <!-- Custom JS -->
     <script type="text/javascript">
-      var current_hour = [<?php   
-                              $i=0;
-                              foreach($current_hour_detail as $k=>$v){
-                                if($i) echo ',';
-                                echo $v['Rate'];
-                                $i++;
-                              }?>];
+      var current_hour = [<?php for($i=0;$i<count($current_hour_detail);$i++){
+                                  if($i) echo ',';
+                                  echo $$current_hour_detail[$i]['Rate'];
+                                }
+                          ?>];
     </script>
     <script src="<?=$tmpl_path?>js/custom.js"></script>
 
