@@ -9,6 +9,7 @@ $config['db']['username'] = 'root';
 $config['db']['password'] = 'password';
 
 
+
 /**
  * Database tables
  */
@@ -20,11 +21,24 @@ $config['db']['range_table']  = 'range_table';
 
 
 /**
+ * Symbols to be used
+ */
+$config['symbols'] = array(	'GBPUSD', 'USDCHF', 'EURUSD', 'GBPJPY', 
+							'EURJPY', 'GBPEUR', 'USDCAD', 'USDJPY',
+							'AUDUSD', 'NZDUSD', 'EURAUD', 'EURCHF',
+							'GBPCHF', 'CADJPY', 'AUDNZD', 'GBPCAD',
+							'EURNZD', 'EURCAD', 'CHFJPY', 'AUDJPY');
+
+
+
+
+/**
  * Data obtained external url
  */
-$config['yql'] = 'select * from yahoo.finance.xchange where pair in ("GBPUSD", "USDCHF", "EURUSD", "GBPJPY", "EURJPY", "GBPEUR", "USDCAD", "USDJPY", "AUDUSD", "NZDUSD", "EURAUD", "EURCHF", "GBPCHF", "CADJPY", "AUDNZD", "GBPCAD", "EURNZD", "EURCAD", "CHFJPY", "AUDJPY")';
+$config['yql'] = 'select * from yahoo.finance.xchange where pair in ("'.implode('", "', $config['symbols']).'")';
 $config['env'] = 'store://datatables.org/alltableswithkeys';
 $config['url'] = 'http://query.yahooapis.com/v1/public/yql?q='.urlencode($config['yql']).'&env='.urlencode($config['env']).'&format=json';
+
 
 
 /**
@@ -36,6 +50,7 @@ $config['filename'] = 'current_data_json.';
 
 
 
+
 /**
  * Range Start time & Range end time -- from yesterday's hour data
  *  The range has to be within the same day, 
@@ -43,6 +58,8 @@ $config['filename'] = 'current_data_json.';
  */
 $config['range_start'] = '17:00:00';
 $config['range_end']   = '22:00:00';
+
+
 
 
 /**
@@ -58,7 +75,11 @@ $config['day_table_range']    = '-2 weeks';
 $config['range_table_range']  = '-2 weeks';
 
 
+
+
 $config['template']['path'] = 'template/';
+
+
 
 
 /**

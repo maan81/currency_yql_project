@@ -143,7 +143,7 @@
                 <span id="orders" class="graph"></span>
                 <div class="details">
                   <span class="big">CURRENT PRICE:</span>
-                  <span class="big"><?=$last_minute['Rate']?></span>
+                  <span class="big"><?=$last_minute[0]['Rate']?></span>
                 </div>
               </li>
              
@@ -192,7 +192,7 @@
 				<br />
 				<!-- INSERT DAILY DATA HERE -->
 
-			<p>Here are yesterdays price levels for <?=$symbol_upper?> on DATE:</p>
+			<p>Here are yesterdays price levels for <?=$symbol_upper?> on <?=explode(' ',$last_day[0]['Datetime'])[0]?>:</p>
               <div class="table-responsive">
                 <table class="table table-bordered no-margin">
                   <thead>
@@ -207,10 +207,10 @@
                   <tbody>
                     <tr>
                       <td><?=$symbol_upper?></td>
-                      <td><?=$last_day['Open']?></td>
-                      <td><?=$last_day['High']?></td>
-                      <td><?=$last_day['Low']?></td>
-                      <td><?=$last_day['Closing']?></td>
+                      <td><?=$last_day[0]['Open']?></td>
+                      <td><?=$last_day[0]['Heigh']?></td>
+                      <td><?=$last_day[0]['Low']?></td>
+                      <td><?=$last_day[0]['Closing']?></td>
                     </tr>
                   </tbody>
                 </table>
@@ -232,10 +232,10 @@
                   <tbody>
                     <tr>
                       <td><?=$symbol_upper?></td>
-                      <td>1.1234</td>
-                      <td>1.1234</td>
-                      <td>1.1234</td>
-                      <td>1.1234</td>
+                      <td><?=$data_range[0]['Open']?></td>
+                      <td><?=$data_range[0]['Heigh']?></td>
+                      <td><?=$data_range[0]['Low']?></td>
+                      <td><?=$data_range[0]['Closing']?></td>
                     </tr>
                   </tbody>
                 </table>

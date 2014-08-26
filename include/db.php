@@ -37,7 +37,7 @@ class Database{
 	 * Get Table by parameters
 	 */
 	function get($table,$param,$symbol=false,$range_start=false,$range_end=false){
-		// _print_r($symbol);
+		// _print_r($range_end);
 		self::connect();
 
 		$sql = 'SELECT * FROM '.$table.' WHERE 1 ';
@@ -49,7 +49,7 @@ class Database{
 			$datetime->modify('-1 hour');
 			$earlier =  $datetime->format('Y-m-d H:i:s');
 
-			// // $sql .= ' AND Datetime 	>= '.gmdate("Y-m-d H:i:s").' - INTERVAL 1 HOUR ';
+			// $sql .= ' AND Datetime 	>= '.gmdate("Y-m-d H:i:s").' - INTERVAL 1 HOUR ';
 			$sql .= ' AND Datetime 	>= "'.$earlier.'"';
 		}
 
@@ -115,7 +115,7 @@ class Database{
 
 		$sql .= ';';
 
-		_print_r($sql,false);
+		// _print_r($sql,false);
 
 		$res = mysqli_query($this->con,$sql);
 
@@ -123,7 +123,6 @@ class Database{
 		while($val = mysqli_fetch_assoc($res)){
 			$data[] = $val;
 		}
-
 		self::disconnect();
 
 		return $data;
@@ -286,7 +285,7 @@ class Database{
 
 		$sql .= ';';
 
-		_print_r($sql,false);
+		// _print_r($sql,false);
 
 		mysqli_query($this->con,$sql);
 

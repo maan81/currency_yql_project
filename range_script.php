@@ -46,7 +46,7 @@ $db = new Database($config);
 
 		array_push($symbols_array[$cur_symbol], $val);
 	}
-	_print_r($symbols_array,false);
+	// _print_r($symbols_array,false);
 
 //-------------------------------------
 
@@ -81,7 +81,7 @@ $db = new Database($config);
 								'Range_end'	  => $date[0].' '.$config['range_end'],
 							);
 	}
-	_print_r($data_range,false);
+	// _print_r($data_range,false);
 	// die;
 //----------------------------------
 
