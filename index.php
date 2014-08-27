@@ -123,7 +123,7 @@ $db = new Database($config);
 							'Open' 	 	  => $last_day_ohlc[0]['Open'],
 							'Heigh'	 	  => max($heigh_array),
 							'Low'		  => min($low_array),
-							'Closing'	  => $last_day_ohlc[count($val)-1]['Closing'],
+							'Closing'	  => $last_day_ohlc[count($last_day_ohlc)-1]['Closing'],
 							'Datetime'	  => $last_day_ohlc[0]['Datetime'],
 							'Range_start' => $date[0].' '.$config['range_start'],
 							'Range_end'	  => $date[0].' '.$config['range_end'],
@@ -132,7 +132,7 @@ $db = new Database($config);
 //----------------------------------
 
 
-
+$t=time();
 
 
 // Include the template for display 

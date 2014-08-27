@@ -52,7 +52,7 @@ $db = new Database($config);
 
 		array_push($symbols_array[$cur_symbol], $val);
 	}
-	_print_r($symbols_array,false);
+	//_print_r($symbols_array,false);
 
 //-------------------------------------
 

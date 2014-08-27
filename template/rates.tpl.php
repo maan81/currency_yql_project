@@ -5,6 +5,9 @@
     <title>SYMBOL Price Levels</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
+
     <!-- Bootstrap CSS -->
     <link href="<?=$tmpl_path?>css/bootstrap.css" rel="stylesheet" media="screen">
 
@@ -90,26 +93,26 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Currencies <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="/gbpusd">GBPUSD</a></li>
-                <li><a href="/usdchf">USDCHF</a></li>
-                <li><a href="/eurusd">EURUSD</a></li>
-                <li><a href="/gbpjpy">GBPJPY</a></li>
-                <li><a href="/eurjpy">EURJPY</a></li>
-                <li><a href="/gbpeur">GBPEUR</a></li>
-                <li><a href="/usdcad">USDCAD</a></li>
-                <li><a href="/usdjpy">USDJPY</a></li>
-                <li><a href="/audusd">AUDUSD</a></li>
-                <li><a href="/nzdusd">NZDUSD</a></li>
-                <li><a href="/euraud">EURAUD</a></li>
-                <li><a href="/eurchf">EURCHF</a></li>
-                <li><a href="/gbpchf">GBPCHF</a></li>
-                <li><a href="/cadjpy">CADJPY</a></li>
-                <li><a href="/audnzd">AUDNZD</a></li>
-                <li><a href="/gbpcad">GBPCAD</a></li>
-                <li><a href="/eurnzd">EURNZD</a></li>
-                <li><a href="/eurcad">EURCAD</a></li>
-                <li><a href="/chfjpy">CHFJPY</a></li>
-                <li><a href="/audjpy">AUDJPY</a></li>
+                <li><a href="/gbpusd?t=<?=$t?>">GBPUSD</a></li>
+                <li><a href="/usdchf?t=<?=$t?>">USDCHF</a></li>
+                <li><a href="/eurusd?t=<?=$t?>">EURUSD</a></li>
+                <li><a href="/gbpjpy?t=<?=$t?>">GBPJPY</a></li>
+                <li><a href="/eurjpy?t=<?=$t?>">EURJPY</a></li>
+                <li><a href="/gbpeur?t=<?=$t?>">GBPEUR</a></li>
+                <li><a href="/usdcad?t=<?=$t?>">USDCAD</a></li>
+                <li><a href="/usdjpy?t=<?=$t?>">USDJPY</a></li>
+                <li><a href="/audusd?t=<?=$t?>">AUDUSD</a></li>
+                <li><a href="/nzdusd?t=<?=$t?>">NZDUSD</a></li>
+                <li><a href="/euraud?t=<?=$t?>">EURAUD</a></li>
+                <li><a href="/eurchf?t=<?=$t?>">EURCHF</a></li>
+                <li><a href="/gbpchf?t=<?=$t?>">GBPCHF</a></li>
+                <li><a href="/cadjpy?t=<?=$t?>">CADJPY</a></li>
+                <li><a href="/audnzd?t=<?=$t?>">AUDNZD</a></li>
+                <li><a href="/gbpcad?t=<?=$t?>">GBPCAD</a></li>
+                <li><a href="/eurnzd?t=<?=$t?>">EURNZD</a></li>
+                <li><a href="/eurcad?t=<?=$t?>">EURCAD</a></li>
+                <li><a href="/chfjpy?t=<?=$t?>">CHFJPY</a></li>
+                <li><a href="/audjpy?t=<?=$t?>">AUDJPY</a></li>
               </ul>
             </li>
            
@@ -264,7 +267,7 @@
     <script type="text/javascript">
       var current_hour = [<?php for($i=0;$i<count($current_hour_detail);$i++){
                                   if($i) echo ',';
-                                  echo $$current_hour_detail[$i]['Rate'];
+                                  echo $current_hour_detail[$i]['Rate'];
                                 }
                           ?>];
     </script>

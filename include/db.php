@@ -46,7 +46,7 @@ class Database{
 		// 'Datetime'=> '1_hour_earlier'
 		if( $param=='1_hour_earlier'){
 			$datetime = new DateTime(null, new DateTimeZone('UTC'));
-			$datetime->modify('-1 hour');
+			$datetime->modify('-30 minutes');
 			$earlier =  $datetime->format('Y-m-d H:i:s');
 
 			// $sql .= ' AND Datetime 	>= '.gmdate("Y-m-d H:i:s").' - INTERVAL 1 HOUR ';
