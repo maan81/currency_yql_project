@@ -121,8 +121,8 @@ $db = new Database($config);
 
 	$data_range[] = array(	'Symbol'	  => $last_day_ohlc[0]['Symbol'],
 							'Open' 	 	  => $last_day_ohlc[0]['Open'],
-							'Heigh'	 	  => max($heigh_array),
-							'Low'		  => min($low_array),
+							'Heigh'	 	  => count($heigh_array)?max($heigh_array):'',
+							'Low'		  => count($low_array)?min($low_array):'',
 							'Closing'	  => $last_day_ohlc[count($last_day_ohlc)-1]['Closing'],
 							'Datetime'	  => $last_day_ohlc[0]['Datetime'],
 							'Range_start' => $date[0].' '.$config['range_start'],
